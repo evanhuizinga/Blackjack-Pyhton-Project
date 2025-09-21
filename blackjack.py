@@ -1,18 +1,28 @@
 import random
 
 chips = 500
-A = 11
-deck = [A,A,A,A,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10]
+Ace = 11
+deck = [Ace,Ace,Ace,Ace,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10]
+
 def deal_card():
     return random.choice(deck)
+
+def calculate_score(cards):
+    score = sum(cards)
+    aces = cards.count(Ace)
+    while score > 21 and aces:
+        score -= 10
+        aces -= 1
+    return score
+
 
 print("Welcome to Blackjack! You have " + str(chips) + " chips.")
 bet = int(input("\nChoose your bet: "))
 userCards = [deal_card(), deal_card()]
 dealerCards = [deal_card(), deal_card()]
 
-userScore = sum(userCards)
-dealerScore = sum(dealerCards)
+userScore = calculate_score(userCards)
+dealerScore = calculate_score(dealerCards)
 
 print(f"\n{userCards} You have: {userScore}")
 print(f"\nDealer shows: {dealerCards[0]}")

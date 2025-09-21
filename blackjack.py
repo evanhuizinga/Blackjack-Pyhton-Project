@@ -32,7 +32,7 @@ while True:
 
     if choice == "hit":
         userCards.append(deal_card())
-        userScore = sum(userCards)
+        userScore = calculate_score(userCards)
         print(f"{userCards} You have: {userScore}")
         print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
         if userScore > 21:
@@ -47,7 +47,7 @@ while True:
     elif choice == "double":
         bet = bet *2
         userCards.append(deal_card())
-        userScore = sum(userCards)
+        userScore = calculate_score(userCards)
         print(f"{userCards} You have: {userScore}")
         print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
         if userScore > 21:
@@ -63,11 +63,11 @@ while True:
 
         while dealerScore < 17:
             dealerCards.append(deal_card())
-            dealerScore = sum(dealerCards)
+            dealerScore = calculate_score(dealerCards)
             print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
 
-            userScore = sum(userCards)
-            dealerScore = sum(dealerCards)
+            userScore = calculate_score(userCards)
+            dealerScore = calculate_score(dealerCards)
 
             if dealerScore > 21:
                 print("Dealer went over. You win!")

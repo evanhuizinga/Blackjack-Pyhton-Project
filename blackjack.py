@@ -35,7 +35,7 @@ def calculate_score(cards):
 
     return score
 
-print("Welcome to Blackjack! You have " + str(chips) + " chips.")
+print("\nWelcome to Blackjack! You have " + str(chips) + " chips.")
 
 while True: 
 
@@ -47,7 +47,7 @@ while True:
         if 1 <= bet <= chips:
             break
         else:
-            print(f"Invalid bet! You must bet between 1 and {chips}")
+            print(f"\nInvalid bet! You must bet between 1 and {chips}")
 
     userCards = [deal_card(), deal_card()]
     dealerCards = [deal_card(), deal_card()]
@@ -59,37 +59,38 @@ while True:
     print(f"\nDealer shows: {dealerCards[0]}")
 
     if userScore == 21 and dealerScore != 21:
-        print(f"Dealer's cards: {dealerCards}, Dealer's score: {dealerScore}")
-        print("You got blackjack! You win!")
+        print(f"\nDealer's cards: {dealerCards}, Dealer's score: {dealerScore}")
+        print("\nYou got blackjack! You win!")
+        print("You now have: " + str(chips) + " chips")
         chips = chips + (bet * 1.5)
         continue
 
     while True:
         choice = input("\nDo you want to hit, stand or double?\n").lower()
 
-        if choice == "hit":
+        if choice in ["hit", "h"]:
             userCards.append(deal_card())
             userScore = calculate_score(userCards)
             print(f"{userCards} You have: {userScore}")
             if userScore > 21:
-                print(f"Dealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
-                print("You went over. You lose!")
+                print(f"\nDealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
+                print("\nYou went over. You lose!")
                 chips = chips - bet
                 break
             elif userScore == 21 and dealerScore != 21:
-                print(f"Dealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
-                print("You got 21! You win!")
+                print(f"\nDealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
+                print("\nYou got 21! You win!")
                 chips = chips + bet
                 break
             elif userScore == 21 and dealerScore == 21:
-                print(f"Dealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
-                print("It's a draw!")
+                print(f"\nDealer's cards: {dealerCards}, Dealer's Score: {dealerScore}")
+                print("\nIt's a draw!")
             else:
                 continue
 
-        elif choice == "double":
+        elif choice in ["double", "d"]:
             if bet * 2 > chips:
-                print("You cannot double your bet.")
+                print("\nYou cannot double your bet.")
                 continue
             else:
                 bet = bet * 2
@@ -106,7 +107,7 @@ while True:
             while dealerScore < 17:
                 dealerCards.append(deal_card())
                 dealerScore = calculate_score(dealerCards)
-                print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
+                print(f"\nDealer's cards: {dealerCards}, dealer's score: {dealerScore}")
             
             if dealerScore > 21:
                 print("Dealer went over. You win!")
@@ -115,39 +116,44 @@ while True:
 
             if dealerScore <= 21:
                 if dealerScore > userScore:
-                    print("Dealer wins!")
+                    print("\nDealer wins!")
                     chips = chips - bet
                 elif dealerScore < userScore:
-                    print("You win!")
+                    print("\nYou win!")
                 else:
-                    print("It's a draw!")
+                    print("\nIt's a draw!")
 
-        elif choice == "stand":
-            print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
+        elif choice in ["stand", "s"]:
+            print(f"\nDealer's cards: {dealerCards}, dealer's score: {dealerScore}")
 
             while dealerScore < 17:
                 dealerCards.append(deal_card())
                 dealerScore = calculate_score(dealerCards)
-                print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
+                print(f"\nDealer's cards: {dealerCards}, dealer's score: {dealerScore}")
 
-                userScore = calculate_score(userCards)
-                dealerScore = calculate_score(dealerCards)
-
-                if dealerScore > 21:
-                    print("Dealer went over. You win!")
-                    chips = chips + bet
-                    break
-                elif dealerScore > userScore:
-                    print("Dealer wins!")
-                    chips = chips - bet
-                    break
-                elif dealerScore < userScore:
-                    print("You win!")
-                    chips = chips + bet
-                    break
-                else:
-                    print("It's a draw!")
+            if dealerScore > 21:
+                print("\nDealer went over. You win!")
+                chips = chips + bet
+                break
+            elif dealerScore > userScore:
+                print("\nDealer wins!")
+                chips = chips - bet
+                break
+            elif dealerScore < userScore:
+                print("\nYou win!")
+                chips = chips + bet
+                break
+            else:
+                print("\nIt's a draw!")
 
             break
+        
+        else:
+            print("Invalid. Indicate hit, stand, or double.") 
+            continue
 
-    print("You now have: " + str(chips) + " chips")
+    print("\nYou now have: " + str(chips) + " chips")
+    playAgain = input("\nWould you like to continue? (y/n): ").lower()
+    if playAgain == 'n':
+        print(f"\nThanks for playing! You finished with: {chips} chips!")
+        break

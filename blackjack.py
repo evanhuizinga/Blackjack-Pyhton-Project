@@ -1,4 +1,5 @@
 import random
+import math
 
 # Starting chips value
 chips = 500
@@ -43,11 +44,14 @@ while True:
     deck = ['Ace','Ace','Ace','Ace',2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,'J','J','J','J','Q','Q','Q','Q','K','K','K','K']
 
     while True:
-        bet = int(input("\nChoose your bet: "))
-        if 1 <= bet <= chips:
-            break
-        else:
-            print(f"\nInvalid bet! You must bet between 1 and {chips}")
+        try:
+            bet = int(input("\nChoose your bet: "))
+            if 1 <= bet <= chips:
+                break
+            else:
+                print(f"Invalid bet! Must be between 1 and {chips}.")
+        except ValueError:
+            print("Please enter a valid number for your bet.")
 
     userCards = [deal_card(), deal_card()]
     dealerCards = [deal_card(), deal_card()]
@@ -59,10 +63,10 @@ while True:
     print(f"\nDealer shows: {dealerCards[0]}")
 
     if userScore == 21 and dealerScore != 21:
+        chips = chips + math.ceil(bet * 1.5)
         print(f"\nDealer's cards: {dealerCards}, Dealer's score: {dealerScore}")
         print("\nYou got blackjack! You win!")
         print("You now have: " + str(chips) + " chips")
-        chips = chips + (bet * 1.5)
         continue
 
     while True:
@@ -152,8 +156,12 @@ while True:
             print("Invalid. Indicate hit, stand, or double.") 
             continue
 
+    if chips == 0:
+        print("You ran out of chips! Better luck next time!")
+        break
+
     print("\nYou now have: " + str(chips) + " chips")
     playAgain = input("\nWould you like to continue? (y/n): ").lower()
-    if playAgain == 'n':
+    if playAgain in ['n', 'no']:
         print(f"\nThanks for playing! You finished with: {chips} chips!")
         break

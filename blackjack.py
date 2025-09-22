@@ -105,8 +105,9 @@ while True:
             if userScore > 21:
                 print("You went over. You lose!")
                 chips = chips - bet
-            else:
-                print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
+                break
+            
+            print(f"Dealer's cards: {dealerCards}, dealer's score: {dealerScore}")
 
             while dealerScore < 17:
                 dealerCards.append(deal_card())
@@ -124,8 +125,10 @@ while True:
                     chips = chips - bet
                 elif dealerScore < userScore:
                     print("\nYou win!")
+                    chips = chips + bet
                 else:
                     print("\nIt's a draw!")
+            break
 
         elif choice in ["stand", "s"]:
             print(f"\nDealer's cards: {dealerCards}, dealer's score: {dealerScore}")

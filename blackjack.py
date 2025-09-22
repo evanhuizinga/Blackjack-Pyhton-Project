@@ -11,9 +11,6 @@ card_values = {
     'K': 10
 }
 
-# Creates 52 card deck
-deck = ['Ace','Ace','Ace','Ace',2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,'J','J','J','J','Q','Q','Q','Q','K','K','K','K']
-
 # Function that returns a random card in deck
 def deal_card():
     card = random.choice(deck)
@@ -46,7 +43,7 @@ while True:
     deck = ['Ace','Ace','Ace','Ace',2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,'J','J','J','J','Q','Q','Q','Q','K','K','K','K']
 
     while True:
-        bet = int(input("\nChoose your bet: \n"))
+        bet = int(input("\nChoose your bet: "))
         if 1 <= bet <= chips:
             break
         else:
